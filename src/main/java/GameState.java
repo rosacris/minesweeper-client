@@ -11,6 +11,7 @@ public class GameState {
     public Date ended_at;
     public String game_status;
     public String[][] board;
+    public int mines;
 
     public GameState() {
 

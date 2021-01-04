@@ -63,6 +63,14 @@ public class Game {
     }
 
     /**
+     * Returns the amount of mines in the game
+     * @return the amount of mines
+     */
+    public int get_mines_count() {
+        return gameState.mines;
+    }
+
+    /**
      * Marks a cell and updates the game state if the game is undecided
      *
      * @param row the cell row
