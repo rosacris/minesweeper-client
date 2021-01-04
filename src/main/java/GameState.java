@@ -8,6 +8,7 @@ public class GameState {
     public int id;
     public int user_id;
     public Date started_at;
+    public Date ended_at;
     public String game_status;
     public String[][] board;
 

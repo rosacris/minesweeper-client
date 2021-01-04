@@ -47,7 +47,9 @@ public class Game {
      * @return the elapsed time in seconds
      */
     public long elapsed() {
-        Duration d = Duration.between(gameState.started_at.toInstant(), Instant.now());
+        Instant from = gameState.started_at.toInstant();
+        Instant to = gameState.ended_at != null ? gameState.ended_at.toInstant() : Instant.now();
+        Duration d = Duration.between(from, to);
         return d.toSeconds();
     }
 
