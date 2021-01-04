@@ -127,12 +127,19 @@ public class HTTPClient {
     public Optional<GameState> new_game(String token, int rows, int cols, int mines) {
         try {
             ObjectMapper responseMapper = new ObjectMapper();
-            String query = "rows=" + rows + "&cols=" + cols + "&mines=" + mines;
-            URI uri = new URI("http", null, hostname, port, "/games", query, null);
+            ObjectMapper requestMapper = new ObjectMapper();
+
+            // Build the request body
+            Map<String, Object> payload = Map.of("rows", rows, "cols", cols, "mines", mines);
+            String requestBody = requestMapper
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(payload);
+
+            URI uri = new URI("http", null, hostname, port, "/games", null, null);
             HttpRequest request = HttpRequest.newBuilder(uri)
                     .header("Content-Type", "application/json")
                     .headers("authorization", token)
-                    .POST(HttpRequest.BodyPublishers.noBody())
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -160,10 +167,9 @@ public class HTTPClient {
     public boolean do_action(String token, int gameId, int row, int col, String status) {
         try {
             ObjectMapper requestObjectMapper = new ObjectMapper();
-            ObjectMapper responseMapper = new ObjectMapper();
 
             // Build login request body
-            Map payload = Map.of("row", row, "col", col, "status", status);
+            Map<String, Object> payload = Map.of("row", row, "col", col, "status", status);
             String requestBody = requestObjectMapper
                     .writerWithDefaultPrettyPrinter()
                     .writeValueAsString(payload);
@@ -177,8 +183,7 @@ public class HTTPClient {
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-
-            return true;
+            return response.statusCode() == 200;
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             e.printStackTrace();
