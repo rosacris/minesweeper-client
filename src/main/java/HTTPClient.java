@@ -57,7 +57,10 @@ public class HTTPClient {
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-            return Optional.of(responseObjectMapper.readValue(response.body(), Token.class));
+            if (response.statusCode() == 200)
+                return Optional.of(responseObjectMapper.readValue(response.body(), Token.class));
+            else
+                return Optional.empty();
         } catch (InterruptedException | IOException | URISyntaxException e) {
             e.printStackTrace();
             return Optional.empty();
@@ -107,7 +110,11 @@ public class HTTPClient {
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            return Optional.of(responseMapper.readValue(response.body(), GameState.class));
+
+            if(response.statusCode() == 200)
+                return Optional.of(responseMapper.readValue(response.body(), GameState.class));
+            else
+                return Optional.empty();
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             e.printStackTrace();
@@ -143,7 +150,11 @@ public class HTTPClient {
                     .build();
 
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            return Optional.of(responseMapper.readValue(response.body(), GameState.class));
+
+            if(response.statusCode() == 201)
+                return Optional.of(responseMapper.readValue(response.body(), GameState.class));
+            else
+                return Optional.empty();
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             e.printStackTrace();
