@@ -21,7 +21,7 @@ usage: minesweeper-client
 ## Some examples
 
 ### Creating a new game
-Create a game for a user of size 7x7 with 5 mines.
+To create a game for a user of size 7x7 with 5 mines:
 ```
 $ java -jar minesweeper-client.jar -h localhost -p 4001 -u user -pw pass -n 7,7,5
 Game: 6
@@ -37,7 +37,7 @@ Status: undecided
 Mines count: 5
 ```
 ### Listing user games
-Let's get the games of the user:
+Let's get the list of games of the user:
 ```
 java -jar minesweeper-client.jar -h localhost -p 4001 -u user -pw pass -l
 [1, 4, 5, 6, 7, 8]
