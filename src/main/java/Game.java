@@ -42,6 +42,14 @@ public class Game {
     }
 
     /**
+     * Returns the game identifier
+     * @return the identifier
+     */
+    public int getId() {
+        return gameState.id;
+    }
+
+    /**
      * Returns the amount of time elapsed since the creation of the game
      *
      * @return the elapsed time in seconds
@@ -83,7 +91,7 @@ public class Game {
             return false;
 
         boolean result = minesweeperClient.do_action(gameState.id, row, col, "?");
-        if(result) {
+        if (result) {
             gameState = minesweeperClient.get_game(gameState.id).gameState;
         }
         return result;
@@ -102,7 +110,7 @@ public class Game {
             return false;
 
         boolean result = minesweeperClient.do_action(gameState.id, row, col, "F");
-        if(result) {
+        if (result) {
             gameState = minesweeperClient.get_game(gameState.id).gameState;
         }
         return result;
@@ -121,7 +129,7 @@ public class Game {
             return false;
 
         boolean result = minesweeperClient.do_action(gameState.id, row, col, " ");
-        if(result) {
+        if (result) {
             gameState = minesweeperClient.get_game(gameState.id).gameState;
         }
         return result;
